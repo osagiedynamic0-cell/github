@@ -26,6 +26,7 @@ class SupabaseClient:
         for attempt in range(5):
             try:
                 self._client = create_client(SUPABASE_URL, SUPABASE_KEY)
+                # Test connection with a simple query
                 self._client.table("worker_state").select("count", count="exact").limit(1).execute()
                 self._connected = True
                 logger.info("Supabase connected")
@@ -38,6 +39,18 @@ class SupabaseClient:
         self._connected = False
         logger.error("Failed to connect to Supabase")
         return False
+
+    def test_connection(self) -> bool:
+        """Test if Supabase is connected."""
+        if not self._client:
+            return False
+        try:
+            self._client.table("worker_state").select("count", count="exact").limit(1).execute()
+            self._connected = True
+            return True
+        except Exception:
+            # Try to reconnect
+            return self._connect()
 
     def _execute(self, operation, *args, **kwargs):
         for attempt in range(3):
