@@ -1,0 +1,13 @@
+flask==3.1.0
+gunicorn==23.0.0
+google-generativeai==0.8.3
+supabase==2.13.0
+telethon==1.38.0
+atproto==0.0.71
+patchright==1.55.0
+playwright==1.55.0
+python-dotenv==1.0.0
+cryptography==44.0.0
+requests==2.32.3
+python-dateutil==2.9.0
+pytz==2025.1
